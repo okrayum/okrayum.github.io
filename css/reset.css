@@ -11,7 +11,20 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* ul, ol {
+  list-style: none;
+} */
+
 a {
   text-decoration: none;
   color: inherit;
+}
+
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
 }
