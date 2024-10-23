@@ -1,17 +1,142 @@
-body {
-  background-color: aquamarine;
+html, body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #e5e5e5;
+}
+
+header {
+  text-align: center;
+}
+
+main {
+  height: 100%;
 }
 
 .choices {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Adds space between list items */
+  gap: 10px;
   padding: 0;
   margin: 10px 0;
-  list-style-position: inside; /* Keeps list numbers aligned */
+  list-style-position: inside;
 }
 
 .choices li {
   font-size: 1rem;
   line-height: 1.5;
+}
+
+#nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: .5rem 0;
+  width: 100%;
+  background-color: #c1c1c1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 3em;
+}
+
+#nav ul{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  list-style: none;
+}
+
+nav a.active {
+  font-weight: bold;
+}
+
+#nav-logo {
+  display: none;
+}
+
+#footer {
+  background-color: #c1c1c1;
+}
+
+
+
+
+
+
+
+
+
+
+/* Tablets: 600px and up */
+@media (min-width: 600px) {
+  body {
+    font-size: 1.125rem;
+  }
+
+  #nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem;
+   
+  }
+  
+  #nav ul {
+    padding-right: 3rem;
+  }
+
+  /* #nav ul a {
+    padding-right: 1rem;
+  } */
+
+  #nav-logo {
+    display: block;
+    height: 5rem; /* Keeps the height consistent */
+    max-width: 100%; /* Prevents overflow */
+    object-fit: contain; /* Ensures the logo scales proportionally */
+  }
+}
+
+/* Small laptops and large tablets: 768px and up */
+@media (min-width: 768px) {
+  body {
+    font-size: 1.25rem;
+  }
+  
+  #nav {
+    padding: 10px 20px;
+  }
+
+  section {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+}
+
+/* Laptops and desktops: 1024px and up */
+@media (min-width: 1024px) {
+  body {
+    font-size: 1.5rem;
+  }
+
+  header {
+    text-align: center;
+  }
+
+  #nav ul {
+    justify-content: flex-end;
+    gap: 30px;
+  }
+}
+
+/* Large desktops: 1200px and up */
+@media (min-width: 1200px) {
+  section {
+    max-width: 960px;
+  }
+
+  footer {
+    padding: 20px;
+  }
 }
