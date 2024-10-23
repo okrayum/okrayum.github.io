@@ -27,6 +27,6 @@ function highlightActiveLink() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-  loadHTMLcomponent("navbar", "nav.html", highlightActiveLink);
-  loadHTMLcomponent("footer", "footer.html");
+  loadHTMLcomponent("navbar", "./nav.html", highlightActiveLink);
+  loadHTMLcomponent("footer", "./footer.html");
 })
