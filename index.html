@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="City Services site to report the pick-up of deceased roadside cats, dogs, and other animals.">
+    <meta
+      name="description"
+      content="City Services site to report the pick-up of deceased roadside cats, dogs, and other animals."
+    />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Animal Report App</title>
@@ -11,64 +14,78 @@
 
   <body>
     <!-- navbar -->
-    <div id="navbar"></div>
+    <div id="navbar" aria-label="Main navigation"></div>
 
     <!-- header -->
     <header>
+      <div class="background-image"></div>
       <h1>City Services - Roadside Animal Reporting</h1>
-      <h2>Were here to provide safety, clean-up, and peace of mind.</h2>
+      <p class="tagline">
+        We're here to provide safety, clean-up, and peace of mind.
+      </p>
     </header>
 
     <!-- main content -->
-    <main>
+    <main id="home-page">
       <!-- introduction section -->
       <section id="introduction">
         <p>
-          It's a sad occurrence but animals often do get hit by cars, especially
-          in high traffic areas. When this happens, there are often unseen
-          hazards. The animal may attract disease and pests to your area, it may
-          draw other animals that may also be in danger of traffic, also if just
-          left in the street, that is poor treatment of the animal.
+          It's unfortunate, but animals sometimes get hit by cars, especially in
+          high-traffic areas. When this happens, there are often hidden risks.
+          These situations can attract diseases, pests, or other
+          animals—potentially leading to further accidents. Leaving the animal
+          on the road not only poses hazards but also reflects poor care for the
+          animal.
         </p>
       </section>
 
       <section id="reporting-options">
         <div id="choices-div">
+          <h2>How to Report a Roadside Animal</h2>
           <p>
-            We make it real simple to report the location of an animal needing
-            to be picked up. You have 3 choices:
+            We've made it simple to report an animal that needs to be picked up.
+            You have options:
           </p>
 
-          <ul class="choices">
+          <ol class="choices">
             <li>
-              Call out toll free number 1-888-888-5555 and leave a message with
-              the adress and location, the type of animal, a brief description
-              and if located in the street please mention if the middle or side
-              of the road.
+              Call our toll-free number: <strong>1-888-555-5555</strong>
+              <ul>
+                <li>Leave a message with the address and location.</li>
+                <li>Provide the type of animal and a brief description.</li>
+                <li>
+                  Mention if the animal is in the middle or side of the road.
+                </li>
+              </ul>
             </li>
             <li>
-              Use the reporting form on the next page and provide the listed
-              information with as much detail as possible.
+              Use the reporting form or map:
+              <ul>
+                <li>
+                  Fill out the form on the next page with as much detail as
+                  possible.
+                </li>
+                <li>
+                  Or, use the map to drop a pin on the animal's location and
+                  select a description from the available options.
+                </li>
+              </ul>
             </li>
-            <li>
-              Use the map option to select the area where the animal is and drop
-              a pin. Then select the description from the choices available and
-              submit.
-            </li>
-          </ul>
+          </ol>
         </div>
       </section>
 
       <section id="assurance">
+        <h2>Quick and Respectful Service</h2>
         <p>
-          All pick-ups will be done the same day within 90 minutes. All animals
-          are handled with care and laid to rest respectfully and safely.
+          All pick-ups will be done the same day, within 90 minutes. 
+          Every animal is handled with care and respect.
         </p>
       </section>
     </main>
 
     <!-- footer -->
-    <div id="footer"></div>
+    <div id="footer" aria-label="Footer information"></div>
 
     <!-- js script -->
     <script src="js/index.js"></script>

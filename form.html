@@ -1,16 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <div id="navbar"></div>
-  <header>Form Page</header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="City Services site to report the pick-up of deceased roadside cats, dogs, and other animals."
+    />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Animal Report App</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <div id="navbar" aria-label="Main navigation"></div>
 
-  <div id="footer"></div>
+    <!-- Header -->
+    <header>
+      <div class="background-image"></div>
+      <h1>City Services - Report an Animal</h1>
+      <p class="tagline">
+        We're here to provide safety, clean-up, and peace of mind.
+      </p>
+    </header>
 
-  <script src="js/index.js"></script>
-</body>
+    <!-- Main Content -->
+    <main id="report-page">
+      <!-- Google Map Section -->
+      <section id="map-section">
+        <h2>Report Location</h2>
+        <div id="map" aria-label="Google Map showing report locations">
+          place holder
+        </div>
+      </section>
+
+      <!-- Reporting Form -->
+      <section id="report-form">
+        <h2>Submit a New Report</h2>
+        <form id="report-form" action="">
+          <label for="cross-streets">Cross Streets / Address:</label>
+          <input type="text" name="cross-streets" id="cross-streets" />
+
+          <fieldset>
+            <legend>Type of Animal:</legend>
+            <label>
+              <input type="radio" name="animal-type" value="dog" required /> Dog
+            </label>
+            <label>
+              <input type="radio" name="animal-type" value="cat" required /> Cat
+            </label>
+            <label>
+              <input type="radio" name="animal-type" value="other" required />
+              Other
+            </label>
+          </fieldset>
+
+          <fieldset>
+            <legend>In Road?</legend>
+            <label>
+              <input type="radio" name="in-road" value="yes" required /> Yes
+            </label>
+            <label>
+              <input type="radio" name="in-road" value="no" required /> No
+            </label>
+          </fieldset>
+
+          <label for="description">Description of Animal:</label>
+          <textarea id="description" name="description" rows="4" required>
+          </textarea>
+
+          <button type="submit">Submit Report</button>
+        </form>
+      </section>
+
+      <!-- Open Reports Section -->
+      <section id="latest-reports">
+        <h2>Latest Reports</h2>
+        <ul id="reports-list">
+          <!-- Reports will be dynamically added here -->
+        </ul>
+      </section>
+    </main>
+
+    <div id="footer"></div>
+
+    <script src="js/index.js"></script>
+  </body>
 </html>
