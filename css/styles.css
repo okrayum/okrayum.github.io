@@ -31,6 +31,7 @@ header h1, header p {
 }
 
 main {
+  flex: 1;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -92,8 +93,8 @@ nav a.active {
 
 #footer {
   background-color: #b0c4de;
+  padding: .25rem;
 }
-
 
 #map {
   height: 225px;
