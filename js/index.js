@@ -29,6 +29,10 @@ function highlightActiveLink() {
 document.addEventListener("DOMContentLoaded", function () {
   loadHTMLcomponent("navbar", "./nav.html", highlightActiveLink);
   loadHTMLcomponent("footer", "./footer.html");
+
+  // Load the reports and markers when the page is loaded
+  displayReports();
+  initMap();
 });
 
 // Functions to add the form submission info to the map and current reports section
@@ -65,17 +69,20 @@ reportForm.addEventListener("submit", (e) => {
 
   reports.unshift(report);
 
-  // Keep only the last 10 reports
-  if (reports.length > 10) {
+  // Keep only the last 20 reports
+  if (reports.length > 20) {
     reports.pop();
   }
+
+  //  Store reports in localStorage
+  localStorage.setItem("reports", JSON.stringify(reports));
 
   // Update the reports display
   displayReports();
 
   // Reset the form
   e.target.reset();
-  
+
   // Geocode the address to get lattitude and longitude
   const geocoder = new google.maps.Geocoder();
 
@@ -90,15 +97,20 @@ reportForm.addEventListener("submit", (e) => {
         title: `Report: ${address}`,
       });
 
-      // Store the new marker in the markers array
-      markers.push(newMarker);
+      // Store the new markers position in localStorage
+      markers.push({ lat: location.lat(), lng: location.lng() });
+      localStorage.setItem("markers", JSON.stringify(markers));
 
       // Re-center map to the new marker location
       map.setCenter(location);
 
-      showNotification(`Report submitted! Marker added at: ${results[0].formatted_address}`);
+      showNotification(
+        `Report submitted! Marker added at: ${results[0].formatted_address}`
+      );
     } else {
-      showNotification("Geocode was not successful for the following reason: " + status);
+      showNotification(
+        "Geocode was not successful for the following reason: " + status
+      );
     }
   });
 });
@@ -114,20 +126,22 @@ function showNotification(message) {
 }
 
 function displayReports() {
+  //  Retreive reports from localStorage
+  const storedReports = JSON.parse(localStorage.getItem("reports")) || [];
   reportsList.innerHTML = ""; // Clear the list
 
   // Slice the first 5 reports for display
-  reports.slice(0, 5).forEach((report) => {
+  storedReports.slice(0, 5).forEach((report) => {
     const li = document.createElement("li");
     li.classList.add("report-item");
+
     li.innerHTML = `
       <strong>${report.animalType.toUpperCase()} (${
       report.inRoad
     })</strong><br />
-      Location: ${report.address}<br />
-      Description: ${report.description}<br />
-      Status: <span class="status">${report.status}</span><br />
-      Reported At: ${report.timestamp}
+    <div class="location">Location: ${report.address}</div>
+    <div class="timestamp">Reported At: ${report.timestamp}</div>
+    <div class="status">Status: <span class="status-text">${report.status}</span></div>
     `;
     reportsList.appendChild(li);
   });
@@ -145,6 +159,16 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById("map"), {
     center: defaultLocation,
-    zoom: 12,
+    zoom: 9,
+  });
+
+  // Retrieve markers from localStorage and add them to the map
+  const storedMarkers = JSON.parse(localStorage.getItem("markers")) || [];
+  storedMarkers.forEach((markerData) => {
+    new google.maps.Marker({
+      position: { lat: markerData.lat, lng: markerData.lng },
+      map: map,
+      title: "Stored Marker",
+    });
   });
 }

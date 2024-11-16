@@ -1,8 +1,10 @@
-html, body {
+html,
+body {
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: 'Roboto', sans-serif;
 }
 
 header {
@@ -22,10 +24,11 @@ header {
   background-size: cover;
   background-position: center;
   opacity: 0.5;
-  z-index: 0; 
+  z-index: 0;
 }
 
-header h1, header p {
+header h1,
+header p {
   position: relative;
   z-index: 1;
 }
@@ -39,8 +42,10 @@ main {
   padding: 20px;
 }
 
-#introduction, #reporting-options, #assurance {
-  margin-top: .25rem;
+#introduction,
+#reporting-options,
+#assurance {
+  margin-top: 0.25rem;
 }
 
 .choices {
@@ -61,14 +66,14 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: .5rem 0;
+  padding: 0.5rem 0;
   width: 100%;
   background-color: #b0c4de;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   height: 3em;
 }
 
-#nav ul{
+#nav ul {
   width: 100%;
   display: flex;
   align-items: center;
@@ -91,19 +96,75 @@ nav a.active {
   gap: 20px;
 }
 
+.report-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.report-item strong {
+  display: inline-block;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.report-item .status {
+  font-weight: bold;
+  /* padding: 3px 8px; */
+  border-radius: 4px;
+}
+
+.report-item .location,
+.report-item .timestamp {
+  font-size: 0.75em;
+  color: #666;
+}
+
+.report-item:hover {
+  background-color: #f1f1f1;
+}
+
+.status-text {
+  color: green;
+  font-weight: bold;
+}
+
+.report-item {
+  margin-bottom: 0.5em;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.report-item .location,
+.report-item .timestamp {
+  margin-top: 5px;
+  font-size: 1em;
+}
+
+.report-item .status {
+  margin-top: 0.5em;
+  font-size: 1em;
+  color: #333;
+}
+
 #footer {
   background-color: #b0c4de;
-  padding: .25rem;
+  padding: 0.25rem;
 }
 
 #footer p {
   margin: 0;
-  font-size: 0.80rem;
+  font-size: 0.8rem;
+  text-align: center;
 }
 
 #map {
   height: 225px;
-  width: 100%; 
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -112,7 +173,7 @@ nav a.active {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 225px;
+  height: auto;
 }
 
 .notification {
@@ -135,6 +196,38 @@ nav a.active {
   opacity: 1;
 }
 
+input[type="text"],
+textarea,
+button {
+  font-family: 'Roboto', sans-serif;
+}
+
+textarea {
+  width: 100%;
+  min-height: 2rem;
+  /* height: auto; */
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: .25rem;
+}
+
+button {
+  font-size: 1em;
+  padding: 3px;
+  background-color: #3a8c5b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #307a48;
+  transform: scale(1.05);
+}
+
 /* Tablets: 600px and up */
 @media (min-width: 600px) {
   body {
@@ -147,7 +240,7 @@ nav a.active {
     justify-content: space-between;
     height: 5rem;
   }
-  
+
   #nav ul {
     padding-right: 3rem;
   }
@@ -168,6 +261,10 @@ nav a.active {
     padding: 20px;
   }
 
+  #report-form {
+    height: 275px;
+  }
+
   #footer p {
     font-size: 1rem;
   }
@@ -178,15 +275,19 @@ nav a.active {
   body {
     font-size: 1.25rem;
   }
-  
+
   #nav {
     padding: 10px 20px;
-    height: auto
+    height: auto;
   }
 
   #home-page section {
     max-width: 90%;
     margin: 0 auto;
+  }
+
+  #report-item {
+    padding: 15px;
   }
 }
 
@@ -210,7 +311,9 @@ nav a.active {
     gap: 30px;
   }
 
-  #map, #report-form, #reports-list {
+  #map,
+  #report-form,
+  #reports-list {
     height: 475px;
   }
 
@@ -225,8 +328,20 @@ nav a.active {
     font-size: 20px;
   }
 
-  #map-section, #form-section, #reports-section {
+  .choices li {
+    font-size: 1.1rem;
+  }
+
+  #map-section,
+  #form-section,
+  #reports-section {
     width: 25%;
+  }
+
+  .report-item:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.02);
+    transition: 0.2s;
   }
 
   #footer p {
