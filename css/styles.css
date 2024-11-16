@@ -3,8 +3,6 @@ html, body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* background-color: #e5e5e5; */
-  
 }
 
 header {
@@ -34,17 +32,15 @@ header h1, header p {
 
 main {
   height: 100%;
-  width: 90%;
-  margin: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  /* align-items: center; */
+  justify-content: space-between;
+  padding: 20px;
 }
 
-/* #introduction, #reporting-options, #assurance {
-  margin-top: 1rem;
-} */
+#introduction, #reporting-options, #assurance {
+  margin-top: .25rem;
+}
 
 .choices {
   display: flex;
@@ -87,17 +83,21 @@ nav a.active {
   display: none;
 }
 
+#report-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
 #footer {
   background-color: #b0c4de;
 }
 
 
-
-
-
 #map {
-  background-color: green;
-  height: 250px;
+  height: 225px;
+  width: 100%; 
   display: flex;
   flex-direction: column;
 }
@@ -105,15 +105,29 @@ nav a.active {
 #report-form {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+  justify-content: space-between;
+  height: 225px;
 }
 
+.notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #4caf50;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
 
-
-
-
-
-
+.notification.show {
+  display: block;
+  opacity: 1;
+}
 
 /* Tablets: 600px and up */
 @media (min-width: 600px) {
@@ -142,6 +156,11 @@ nav a.active {
     max-width: 100%;
     object-fit: contain;
   }
+
+  .notification {
+    font-size: 18px;
+    padding: 20px;
+  }
 }
 
 /* Small laptops and large tablets: 768px and up */
@@ -159,11 +178,10 @@ nav a.active {
     max-width: 90%;
     margin: 0 auto;
   }
-
 }
 
-/* Laptops and desktops: 1024px and up */
-@media (min-width: 1024px) {
+/* Laptops and desktops: 1200px and up */
+@media (min-width: 1200px) {
   body {
     font-size: 1.5rem;
   }
@@ -171,10 +189,6 @@ nav a.active {
   #report-page {
     flex-direction: row;
     justify-content: space-around;
-  }
-
-  #map-section, #report-form, #latest-reports {
-    margin-top: 1rem;
   }
 
   header {
@@ -186,8 +200,8 @@ nav a.active {
     gap: 30px;
   }
 
-  #map {
-    height: 500px;
+  #map, #report-form, #reports-list {
+    height: 475px;
   }
 
   #nav-logo {
@@ -195,5 +209,13 @@ nav a.active {
     height: 8rem;
     max-width: 100%;
     object-fit: contain;
+  }
+
+  .notification {
+    font-size: 20px;
+  }
+
+  #map-section, #form-section, #reports-section {
+    width: 25%;
   }
 }

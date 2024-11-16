@@ -7,6 +7,7 @@
       name="description"
       content="City Services site to report the pick-up of deceased roadside cats, dogs, and other animals."
     />
+
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>Animal Report App</title>
@@ -29,16 +30,14 @@
       <!-- Google Map Section -->
       <section id="map-section">
         <h2>Report Location</h2>
-        <div id="map" aria-label="Google Map showing report locations">
-          place holder
-        </div>
+        <div id="map" aria-label="Google Map showing report locations"></div>
       </section>
 
       <!-- Reporting Form -->
-      <section id="report-form">
+      <section id="form-section">
         <h2>Submit a New Report</h2>
         <form id="report-form" action="">
-          <label for="cross-streets">Cross Streets / Address:</label>
+          <label for="cross-streets">Cross Streets / Address / City:</label>
           <input type="text" name="cross-streets" id="cross-streets" />
 
           <fieldset>
@@ -74,7 +73,7 @@
       </section>
 
       <!-- Open Reports Section -->
-      <section id="latest-reports">
+      <section id="reports-section">
         <h2>Latest Reports</h2>
         <ul id="reports-list">
           <!-- Reports will be dynamically added here -->
@@ -85,5 +84,10 @@
     <div id="footer"></div>
 
     <script src="js/index.js"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2lxutf0HPWH7CrSxiLH6gWnP1dPStoss&callback=initMap"
+      async
+      defer
+    ></script>
   </body>
 </html>
