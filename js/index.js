@@ -1,9 +1,11 @@
-// Funtion to add the navbar and footer components to the other pages
+// Function to add the navbar and footer components to the other pages dynamically
 function loadHTMLcomponent(elID, component, callback) {
   fetch(component)
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Faild to load " + component);
+        throw new Error(
+          `Failed to load ${component} for ${elID}: ${response.status}`
+        );
       }
       return response.text();
     })
@@ -20,10 +22,10 @@ function loadHTMLcomponent(elID, component, callback) {
       } else if (elID === "footer") {
         const footer = document.getElementById("footer");
         footer.setAttribute("aria-label", "Footer information");
-          footer.setAttribute("role", "contentinfo");
+        footer.setAttribute("role", "contentinfo");
       }
 
-      if (callback) callback();
+      if (typeof callback === "function") callback();
     })
     .catch((error) => console.error("Error loading HTML component:", error));
 }
@@ -44,8 +46,10 @@ document.addEventListener("DOMContentLoaded", function () {
   loadHTMLcomponent("navbar", "./nav.html", highlightActiveLink);
   loadHTMLcomponent("footer", "./footer.html");
 
-  // Load the reports when the page is loaded
-  displayReports();
+  // Only call displayReports if the element exists on the page
+  if (document.getElementById("reports-list")) {
+    displayReports();
+  }
 });
 
 // Functions to add the form submission info to the map and current reports section
@@ -84,7 +88,7 @@ if (reportForm) {
 
     reports.unshift(report);
 
-    // Keep only the last 20 reports
+    // Retain a maximum of 20 reports in localStorage for performance reasons.
     if (reports.length > 20) {
       reports.pop();
     }
@@ -98,7 +102,7 @@ if (reportForm) {
     // Reset the form
     e.target.reset();
 
-    // Geocode the address to get lattitude and longitude
+    // Geocode the address to get latitude and longitude
     const geocoder = new google.maps.Geocoder();
 
     geocoder.geocode({ address: address }, (results, status) => {
@@ -131,6 +135,7 @@ if (reportForm) {
   });
 }
 
+// Function to show pop-up confirmation when report is submitted
 function showNotification(message) {
   notification.textContent = message;
   notification.classList.add("show");
@@ -141,38 +146,34 @@ function showNotification(message) {
   }, 5000);
 }
 
+//  Displays reports after the "report-list" element is loaded.
 function displayReports() {
   const reportsList = document.getElementById("reports-list");
 
-  if (reportsList) {
-    //  Retreive reports from localStorage
-    const storedReports = JSON.parse(localStorage.getItem("reports")) || [];
-    reportsList.innerHTML = ""; // Clear the list
+  //  Retrieve reports from localStorage
+  const storedReports = JSON.parse(localStorage.getItem("reports")) || [];
+  reportsList.innerHTML = ""; // Clear the list to avoid adding duplicates
 
-    // Slice the first 5 reports for display
-    storedReports.slice(0, 5).forEach((report) => {
-      const li = document.createElement("li");
-      li.classList.add("report-item");
+  // Slice the first 5 reports for display
+  storedReports.slice(0, 5).forEach((report) => {
+    const li = document.createElement("li");
+    li.classList.add("report-item");
 
-      li.innerHTML = `
+    li.innerHTML = `
         <strong>${report.animalType.toUpperCase()} (${
-        report.inRoad
-      })</strong><br />
+      report.inRoad
+    })</strong><br />
       <div class="location">Location: ${report.address}</div>
       <div class="timestamp">Reported At: ${report.timestamp}</div>
       <div class="status">Status: <span class="status-text">${
         report.status
       }</span></div>
       `;
-      reportsList.appendChild(li);
-    });
-  } else {
-    console.warn("No reports-list element found. Skipping displayReports.");
-  }
+    reportsList.appendChild(li);
+  });
 
-  // Scrollable styling to make it clear that more than 5 reports are available
   if (reportsList) {
-    reportsList.style.maxHeight = "475px";
+    reportsList.style.maxHeight = "540px";
     reportsList.style.overflowY = "auto";
   }
 }
@@ -181,17 +182,13 @@ function displayReports() {
 let map;
 
 function initMap() {
-  // Only proceed if the google object is defined
-  // if (typeof google === "undefined") {
-  //   console.warn("Google Maps API is not loaded on this page.");
-  //   return;
-  // }
-
-  const defaultLocation = { lat: 33.4484, lng: -112.074 }; // Phoenix, Arizona
+  // Phoenix, Arizona as default loaction only because that's where I live.
+  const defaultLocation = { lat: 33.4484, lng: -112.074 };
 
   map = new google.maps.Map(document.getElementById("map"), {
     center: defaultLocation,
-    zoom: 9,
+    zoom: 10,
+    // Unique identifier specifically to this Google map
     mapId: "47c471a16ed7969e",
   });
 

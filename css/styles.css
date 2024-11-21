@@ -1,3 +1,4 @@
+/* styles.css */
 html,
 body {
   width: 100%;
@@ -6,6 +7,7 @@ body {
   flex-direction: column;
   font-family: "Roboto", sans-serif;
   font-size: 1rem;
+  line-height: 1.25;
 }
 
 header {
@@ -13,6 +15,7 @@ header {
   text-align: center;
   padding: 1.5rem;
   font-weight: bold;
+  background-color: #b0c4de;
 }
 
 .background-image {
@@ -43,22 +46,20 @@ main {
   justify-content: space-between;
 }
 
-#introduction,
-#reporting-options,
-#assurance,
-#concept,
-#how-it-works,
-#future-plans {
-  margin-top: 0.25rem;
+section {
+  margin-bottom: 0.5rem;
 }
 
 .choices,
 .info-list {
   list-style-position: inside;
-  line-height: 1.5em;
+  line-height: 1.45em;
   padding: 0;
-  margin: 0.5rem 0;
-  
+  margin: 0.25rem 0;
+}
+
+.info-list {
+  padding-left: 1rem;
 }
 
 .choices ul {
@@ -67,20 +68,14 @@ main {
   margin: 0.25rem 0;
 }
 
-.info-list {
-  padding-left: 1rem;
-  margin: 0.25rem 0;
-}
-
 #nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 0;
+  padding: 10px 0.5rem;
   width: 100%;
   background-color: #b0c4de;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  height: 3em;
+  height: 3.5rem;
 }
 
 #nav ul {
@@ -89,6 +84,7 @@ main {
   align-items: center;
   justify-content: space-evenly;
   list-style: none;
+  gap: 0.25rem;
 }
 
 nav a.active {
@@ -96,7 +92,9 @@ nav a.active {
 }
 
 #nav-logo {
-  display: none;
+  height: 3.75rem;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 #report-page {
@@ -109,7 +107,7 @@ nav a.active {
 .report-item {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  border-radius: .8px;
+  border-radius: 5px;
   padding: 0.625rem;
   margin-top: 0.5em;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -121,15 +119,11 @@ nav a.active {
   font-size: 1.1rem;
 }
 
-.report-item .status {
-  font-weight: bold;
-}
-
 .report-item .location,
 .report-item .timestamp {
   font-size: 1em;
   color: #666;
-  margin-top: .25rem;
+  margin-top: 0.25rem;
 }
 
 .report-item:hover {
@@ -142,6 +136,7 @@ nav a.active {
 }
 
 .report-item .status {
+  font-weight: bold;
   margin-top: 0.5em;
   font-size: 1em;
   color: #333;
@@ -192,12 +187,17 @@ nav a.active {
   opacity: 1;
 }
 
+input::placeholder,
+textarea::placeholder {
+  font-size: 1rem;
+}
+
 input,
 textarea,
 fieldset {
   border-radius: 5px;
   border: 1px solid #666;
-  padding: .25rem;
+  padding: 0.25rem;
 }
 
 fieldset {
@@ -218,35 +218,38 @@ textarea:focus {
   outline: none;
 }
 
-input[type="text"],
-textarea,
-button {
-  font-family: "Roboto", sans-serif;
-}
-
 textarea {
   width: 100%;
   min-height: 2rem;
   height: auto;
   padding: 0.5rem;
-  font-size: 1rem;
+  font-size: 1.5rem;
   box-sizing: border-box;
   margin-bottom: 0.25rem;
 }
 
-button {
+button,
+.cta-button {
   font-size: 1em;
-  padding: 3px;
+  padding: 3px 15px;
   background-color: #3a8c5b;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  text-decoration: none;
+  margin-top: 0.25rem;
 }
 
-button:hover {
+button:hover,
+.cta-button:hover {
   background-color: #307a48;
   transform: scale(1.05);
+}
+
+.cta-button-container {
+  text-align: center;
+  margin-top: 0.25rem;
 }
 
 /* Tablets: 600px and up */
@@ -256,14 +259,8 @@ button:hover {
   }
 
   #nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 6rem;
-  }
-
-  #nav ul {
-    padding-right: 3rem;
+    padding: 10px 1rem;
+    height: 6.5rem;
   }
 
   #nav ul a {
@@ -271,10 +268,7 @@ button:hover {
   }
 
   #nav-logo {
-    display: block;
-    height: 6rem;
-    max-width: 100%;
-    object-fit: contain;
+    height: 7rem;
   }
 
   .notification {
@@ -295,25 +289,36 @@ button:hover {
 @media (min-width: 768px) {
   body {
     font-size: 1.25rem;
+    line-height: 1.25;
   }
 
   #nav {
     padding: 10px 2rem;
-    height: 7rem;
+    height: 7.5rem;
   }
 
   #nav ul {
+    margin-right: 5rem;
     justify-content: flex-end;
     gap: 5rem;
   }
 
+  #nav-logo {
+    height: 8rem;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    font-size: 1.25rem;
+  }
+
   #home-page section,
   #about-page section {
-    margin: 0 2.5rem;
+    margin: 0.25rem 1.5rem;
   }
-  
+
   .report-item {
-    padding: .85rem;
+    padding: 0.85rem;
   }
 }
 
@@ -328,32 +333,38 @@ button:hover {
     justify-content: space-evenly;
   }
 
+  input::placeholder,
+  textarea::placeholder {
+    font-size: 1.5rem;
+  }
+
+  textarea {
+    height: 8rem;
+  }
+
   header {
-    text-align: center;
     padding: 2rem;
   }
 
   #nav {
-    padding: 10px 2rem;
-    height: 8rem;
+    height: 9rem;
+    padding: 10px 2.5rem;
   }
 
   #nav ul {
+    margin-right: 7rem;
     justify-content: flex-end;
-    gap: 7rem;
+    gap: 10rem;
   }
 
   #map,
   #report-form,
   #reports-list {
-    height: 540px;
+    height: 520px;
   }
 
   #nav-logo {
-    display: block;
-    height: 7rem;
-    max-width: 100%;
-    object-fit: contain;
+    height: 9.5rem;
   }
 
   .notification {
@@ -377,7 +388,28 @@ button:hover {
     transition: 0.2s;
   }
 
+  input,
+  textarea,
+  fieldset {
+    padding: 0.5rem;
+  }
+
   #footer p {
     font-size: 1.25rem;
+  }
+}
+
+/* For devices smaller than 300px */
+@media (max-width: 300px) {
+  #nav-logo {
+    display: none;
+  }
+
+  .cta-button {
+    display: none;
+  }
+
+  main {
+    padding: 0.5rem;
   }
 }
