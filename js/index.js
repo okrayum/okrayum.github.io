@@ -9,9 +9,23 @@ function loadHTMLcomponent(elID, component, callback) {
     })
     .then((data) => {
       document.getElementById(elID).innerHTML = data;
+
+      // Add aria-labels after HTML components are loaded
+      if (elID === "navbar") {
+        const nav = document.getElementById("nav");
+        if (nav) {
+          nav.setAttribute("aria-label", "Main navigation");
+          nav.setAttribute("role", "banner");
+        }
+      } else if (elID === "footer") {
+        const footer = document.getElementById("footer");
+        footer.setAttribute("aria-label", "Footer information");
+          footer.setAttribute("role", "contentinfo");
+      }
+
       if (callback) callback();
     })
-    .catch((error) => console.error("Error loadin HTML component:", error));
+    .catch((error) => console.error("Error loading HTML component:", error));
 }
 
 // Function to highlight the active page link
@@ -32,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Load the reports when the page is loaded
   displayReports();
-  // initMap();
 });
 
 // Functions to add the form submission info to the map and current reports section

@@ -4,14 +4,15 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
 }
 
 header {
   position: relative;
   text-align: center;
-  padding: 20px;
-  color: black;
+  padding: 1.5rem;
+  font-weight: bold;
 }
 
 .background-image {
@@ -36,30 +37,39 @@ header p {
 main {
   flex: 1;
   height: 100%;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
 }
 
 #introduction,
 #reporting-options,
-#assurance {
+#assurance,
+#concept,
+#how-it-works,
+#future-plans {
   margin-top: 0.25rem;
 }
 
-.choices {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0;
-  margin: 10px 0;
+.choices,
+.info-list {
   list-style-position: inside;
+  line-height: 1.5em;
+  padding: 0;
+  margin: 0.5rem 0;
+  
 }
 
-.choices li {
-  font-size: 1rem;
-  line-height: 1.5;
+.choices ul {
+  list-style-type: disc;
+  padding-left: 1rem;
+  margin: 0.25rem 0;
+}
+
+.info-list {
+  padding-left: 1rem;
+  margin: 0.25rem 0;
 }
 
 #nav {
@@ -93,32 +103,33 @@ nav a.active {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 20px;
+  gap: 1.25rem;
 }
 
 .report-item {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: .8px;
+  padding: 0.625rem;
+  margin-top: 0.5em;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
 }
 
 .report-item strong {
   display: inline-block;
-  font-size: 1.1em;
-  color: #333;
+  font-size: 1.1rem;
 }
 
 .report-item .status {
   font-weight: bold;
-  border-radius: 4px;
 }
 
 .report-item .location,
 .report-item .timestamp {
-  font-size: 0.75em;
+  font-size: 1em;
   color: #666;
+  margin-top: .25rem;
 }
 
 .report-item:hover {
@@ -128,20 +139,6 @@ nav a.active {
 .status-text {
   color: green;
   font-weight: bold;
-}
-
-.report-item {
-  margin-bottom: 0.5em;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-.report-item .location,
-.report-item .timestamp {
-  margin-top: 5px;
-  font-size: 1em;
 }
 
 .report-item .status {
@@ -182,9 +179,9 @@ nav a.active {
   transform: translate(-50%, -50%);
   background-color: #4caf50;
   color: white;
-  padding: 15px;
+  padding: 1rem;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 1rem;
   display: none;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
@@ -195,10 +192,12 @@ nav a.active {
   opacity: 1;
 }
 
-input, textarea, fieldset {
-  border-radius: 4px;
+input,
+textarea,
+fieldset {
+  border-radius: 5px;
   border: 1px solid #666;
-  padding: 5px;
+  padding: .25rem;
 }
 
 fieldset {
@@ -208,30 +207,31 @@ fieldset {
 
 input[type="radio"] {
   width: 15px;
-  height: 15px; 
-  border-radius: 50%; 
+  height: 15px;
+  border-radius: 50%;
 }
 
-input:focus, select:focus, textarea:focus {
-  border-color: #007bff; 
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff;
   outline: none;
 }
 
 input[type="text"],
 textarea,
 button {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 textarea {
   width: 100%;
   min-height: 2rem;
-  /* height: auto; */
+  height: auto;
   padding: 0.5rem;
   font-size: 1rem;
-  border-radius: 4px;
   box-sizing: border-box;
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
 }
 
 button {
@@ -252,14 +252,14 @@ button:hover {
 /* Tablets: 600px and up */
 @media (min-width: 600px) {
   body {
-    font-size: 1.125rem;
+    font-size: 1.15rem;
   }
 
   #nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 5rem;
+    height: 6rem;
   }
 
   #nav ul {
@@ -272,14 +272,14 @@ button:hover {
 
   #nav-logo {
     display: block;
-    height: 5rem;
+    height: 6rem;
     max-width: 100%;
     object-fit: contain;
   }
 
   .notification {
-    font-size: 18px;
-    padding: 20px;
+    font-size: 1.125rem;
+    padding: 1.125rem;
   }
 
   #report-form {
@@ -298,65 +298,77 @@ button:hover {
   }
 
   #nav {
-    padding: 10px 20px;
-    height: auto;
+    padding: 10px 2rem;
+    height: 7rem;
   }
 
-  #home-page section {
-    max-width: 90%;
-    margin: 0 auto;
+  #nav ul {
+    justify-content: flex-end;
+    gap: 5rem;
   }
 
-  #report-item {
-    padding: 15px;
+  #home-page section,
+  #about-page section {
+    margin: 0 2.5rem;
+  }
+  
+  .report-item {
+    padding: .85rem;
   }
 }
 
 /* Laptops and desktops: 1200px and up */
 @media (min-width: 1200px) {
   body {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
   }
 
   #report-page {
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
 
   header {
     text-align: center;
+    padding: 2rem;
+  }
+
+  #nav {
+    padding: 10px 2rem;
+    height: 8rem;
   }
 
   #nav ul {
     justify-content: flex-end;
-    gap: 30px;
+    gap: 7rem;
   }
 
   #map,
   #report-form,
   #reports-list {
-    height: 475px;
+    height: 540px;
   }
 
   #nav-logo {
     display: block;
-    height: 8rem;
+    height: 7rem;
     max-width: 100%;
     object-fit: contain;
   }
 
   .notification {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
-  .choices li {
-    font-size: 1.1rem;
+  .choices li,
+  .info-list {
+    font-size: 1.25rem;
   }
 
   #map-section,
   #form-section,
   #reports-section {
-    width: 25%;
+    width: 30%;
   }
 
   .report-item:hover {
@@ -366,6 +378,6 @@ button:hover {
   }
 
   #footer p {
-    font-size: 1.33rem;
+    font-size: 1.25rem;
   }
 }

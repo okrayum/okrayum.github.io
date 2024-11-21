@@ -13,22 +13,23 @@
   </head>
 
   <body>
-    <!-- navbar -->
-    <div id="navbar" aria-label="Main navigation"></div>
+    <!-- Navbar dynamically rendered -->
+    <div id="navbar"></div>
 
     <!-- header -->
     <header>
-      <div class="background-image"></div>
+      <div class="background-image" role="presentation"></div>
       <h1>City Services - Roadside Animal Reporting</h1>
-      <p class="tagline">
+      <p>
         We're here to provide safety, clean-up, and peace of mind.
       </p>
     </header>
 
     <!-- main content -->
-    <main id="home-page">
+    <main id="home-page" role="main">
       <!-- introduction section -->
-      <section id="introduction">
+      <section id="introduction" aria-labelledby="understanding-issue-heading" role="region">
+        <h2 id="understanding-issue-heading">Understanding the Issue</h2>
         <p>
           It's unfortunate, but animals sometimes get hit by cars, especially in
           high-traffic areas. When this happens, there are often hidden risks.
@@ -39,9 +40,8 @@
         </p>
       </section>
 
-      <section id="reporting-options">
-        <div id="choices-div">
-          <h2>How to Report a Roadside Animal</h2>
+      <section id="reporting-options" role="region" aria-labelledby="reporting-options-heading">
+          <h2 id="reporting-options-heading">Reporting Roadside Animals</h2>
           <p>
             We've made it simple to report an animal that needs to be picked up.
             You have options:
@@ -66,16 +66,16 @@
                   possible.
                 </li>
                 <li>
-                  Upon form submission, a marker will be placed on the map to mark the pickup site, and our team will be notified.
+                  Upon form submission, a marker will be placed on the map to
+                  mark the pickup site, and our team will be notified.
                 </li>
               </ul>
             </li>
           </ol>
-        </div>
       </section>
 
-      <section id="assurance">
-        <h2>Quick and Respectful Service</h2>
+      <section id="assurance" role="region" aria-labelledby="assurance-heading">
+        <h2 id="assurance-heading">Commitment to Care</h2>
         <p>
           All pick-ups will be done the same day, within 90 minutes. Every
           animal is handled with care and respect.
@@ -83,9 +83,8 @@
       </section>
     </main>
 
-    <!-- footer -->
-    <div id="footer" aria-label="Footer information"></div>
-
+    <!-- Footer dynamically rendered -->
+    <div id="footer"></div>
     <!-- js script -->
     <script src="js/index.js"></script>
   </body>

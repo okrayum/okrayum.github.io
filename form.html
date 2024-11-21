@@ -7,49 +7,80 @@
       name="description"
       content="City Services site to report the pick-up of deceased roadside cats, dogs, and other animals."
     />
-
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Animal Report App</title>
   </head>
   <body>
-    <!-- navbar -->
-    <div id="navbar" aria-label="Main navigation"></div>
+    <!-- Navbar dynamically rendered -->
+    <div id="navbar"></div>
 
     <!-- Header -->
     <header>
-      <div class="background-image"></div>
-      <h1>City Services - Report an Animal</h1>
-      <p class="tagline">
-        We're here to provide safety, clean-up, and peace of mind.
-      </p>
+      <div class="background-image" role="presentation"></div>
+      <h1>City Services - Reporting an Animal</h1>
+      <p>We're here to provide safety, clean-up, and peace of mind.</p>
     </header>
 
     <!-- Main Content -->
     <main id="report-page">
       <!-- Google Map Section -->
-      <section id="map-section">
-        <h2>Latest Locations</h2>
-        <div id="map" aria-label="Google Map showing report locations"></div>
+      <section id="map-section" aria-labelledby="map-section-heading">
+        <h2 id="map-section-heading">Latest Locations</h2>
+        <div
+          id="map"
+          aria-label="Interactive Google Map showing report locations"
+        ></div>
       </section>
 
       <!-- Reporting Form -->
-      <section id="form-section">
-        <h2>Make a Report</h2>
+      <section id="form-section" aria-labelledby="form-section-heading">
+        <h2 id="form-section-heading">Make a Report</h2>
         <form id="report-form" action="">
           <label for="cross-streets">Cross Streets / Address / City:</label>
-          <input type="text" name="cross-streets" id="cross-streets" />
+          <input
+            type="text"
+            name="cross-streets"
+            id="cross-streets"
+            required
+            aria-required="true"
+            placeholder="Enter location details"
+          />
 
           <fieldset>
             <legend>Type of Animal:</legend>
             <label>
-              <input type="radio" name="animal-type" value="dog" required /> Dog
+              <input
+                type="radio"
+                name="animal-type"
+                value="dog"
+                required
+                aria-required="true"
+              />
+              Dog
             </label>
             <label>
-              <input type="radio" name="animal-type" value="cat" required /> Cat
+              <input
+                type="radio"
+                name="animal-type"
+                value="cat"
+                required
+                aria-required="true"
+              />
+              Cat
             </label>
             <label>
-              <input type="radio" name="animal-type" value="other" required />
+              <input
+                type="radio"
+                name="animal-type"
+                value="other"
+                required
+                aria-required="true"
+              />
               Other
             </label>
           </fieldset>
@@ -57,30 +88,51 @@
           <fieldset>
             <legend>In Road?</legend>
             <label>
-              <input type="radio" name="in-road" value="yes" required /> Yes
+              <input
+                type="radio"
+                name="in-road"
+                value="yes"
+                required
+                aria-required="true"
+              />
+              Yes
             </label>
             <label>
-              <input type="radio" name="in-road" value="no" required /> No
+              <input
+                type="radio"
+                name="in-road"
+                value="no"
+                required
+                aria-required="true"
+              />
+              No
             </label>
           </fieldset>
 
           <label for="description">Brief Description:</label>
-          <textarea id="description" name="description" rows="4" required>
-          </textarea>
+          <textarea
+            id="description"
+            name="description"
+            rows="4"
+            required
+            aria-required="true"
+            placeholder="Provide additional details here"
+          ></textarea>
 
           <button type="submit">Submit Report</button>
         </form>
       </section>
 
       <!-- Open Reports Section -->
-      <section id="reports-section">
-        <h2>Latest Reports</h2>
-        <ul id="reports-list">
+      <section id="reports-section" aria-labelledby="reports-section-heading">
+        <h2 id="reports-section-heading">Latest Reports</h2>
+        <ul id="reports-list" aria-live="polite">
           <!-- Reports will be dynamically added here -->
         </ul>
       </section>
     </main>
 
+    <!-- Footer dynamically rendered -->
     <div id="footer"></div>
 
     <script src="js/index.js"></script>
