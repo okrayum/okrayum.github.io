@@ -144,7 +144,7 @@ nav a.active {
 
 #footer {
   background-color: #b0c4de;
-  padding: 0.25rem;
+  padding: .5rem;
 }
 
 #footer p {
@@ -231,7 +231,7 @@ textarea {
 button,
 .cta-button {
   font-size: 1em;
-  padding: 3px 15px;
+  padding: 5px 15px;
   background-color: #3a8c5b;
   color: white;
   border: none;
@@ -249,7 +249,7 @@ button:hover,
 
 .cta-button-container {
   text-align: center;
-  margin-top: 1.25rem;
+  margin-top: .5rem;
 }
 
 /* Tablets: 600px and up */
