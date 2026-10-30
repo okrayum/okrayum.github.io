@@ -68,18 +68,106 @@ const notification = document.createElement("div");
 notification.classList.add("notification");
 document.body.appendChild(notification);
 
+// Escape user input before injecting it into the page
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Clear all inline validation errors on the report form
+function clearFormErrors() {
+  document.querySelectorAll(".form-error").forEach((el) => {
+    el.textContent = "";
+  });
+  document
+    .querySelectorAll("#report-form .invalid")
+    .forEach((el) => el.classList.remove("invalid"));
+}
+
+function setFieldError(inputEl, errorElId, message) {
+  const errorEl = document.getElementById(errorElId);
+  if (errorEl) errorEl.textContent = message;
+  if (inputEl) inputEl.classList.add("invalid");
+}
+
 if (reportForm) {
+  // Clear a field's error as soon as the user fixes it
+  reportForm.addEventListener("input", (e) => {
+    const field = e.target.closest("input, fieldset, textarea");
+    if (field) field.classList.remove("invalid");
+    const describedBy = field && field.getAttribute("aria-describedby");
+    if (describedBy) {
+      const errorEl = document.getElementById(describedBy);
+      if (errorEl) errorEl.textContent = "";
+    }
+  });
+  reportForm.addEventListener("change", (e) => {
+    const fieldset = e.target.closest("fieldset");
+    if (fieldset) {
+      fieldset.classList.remove("invalid");
+      const describedBy = fieldset.getAttribute("aria-describedby");
+      if (describedBy) {
+        const errorEl = document.getElementById(describedBy);
+        if (errorEl) errorEl.textContent = "";
+      }
+    }
+  });
+
   reportForm.addEventListener("submit", (e) => {
     e.preventDefault();
+    clearFormErrors();
 
-    const address = document.getElementById("cross-streets").value.trim();
-    const animalType = document.querySelector(
+    const addressInput = document.getElementById("cross-streets");
+    const address = addressInput.value.trim();
+    const animalTypeInput = document.querySelector(
       "input[name='animal-type']:checked"
-    ).value;
-    const inRoad = document.querySelector(
-      "input[name='in-road']:checked"
-    ).value;
+    );
+    const inRoadInput = document.querySelector("input[name='in-road']:checked");
     const description = document.getElementById("description").value.trim();
+
+    let firstInvalid = null;
+
+    if (address.length < 3) {
+      setFieldError(
+        addressInput,
+        "cross-streets-error",
+        "Please enter a location — a street address or cross streets (at least 3 characters)."
+      );
+      firstInvalid = firstInvalid || addressInput;
+    }
+    if (!animalTypeInput) {
+      setFieldError(
+        document.getElementById("animal-type-fieldset"),
+        "animal-type-error",
+        "Please select the type of animal."
+      );
+      firstInvalid =
+        firstInvalid || document.getElementById("animal-type-fieldset");
+    }
+    if (!inRoadInput) {
+      setFieldError(
+        document.getElementById("in-road-fieldset"),
+        "in-road-error",
+        "Please tell us whether the animal is in the road."
+      );
+      firstInvalid = firstInvalid || document.getElementById("in-road-fieldset");
+    }
+
+    if (firstInvalid) {
+      if (firstInvalid.focus) firstInvalid.focus();
+      else {
+        const focusable = firstInvalid.querySelector("input");
+        if (focusable) focusable.focus();
+      }
+      return;
+    }
+
+    const animalType = animalTypeInput.value;
+    const inRoad = inRoadInput.value;
 
     const report = {
       id: reports.length + 1,
@@ -107,6 +195,9 @@ if (reportForm) {
     // Reset the form
     e.target.reset();
 
+    // Confirm the save right away, then update once the map pin is placed
+    showNotification("Report saved! Placing it on the map…");
+
     // Geocode the address to get latitude and longitude
     const geocoder = new google.maps.Geocoder();
 
@@ -133,7 +224,8 @@ if (reportForm) {
         );
       } else {
         showNotification(
-          "Geocode was not successful for the following reason: " + status
+          "Report saved, but we couldn't find that address on the map. Please double-check the location details.",
+          true
         );
       }
     });
@@ -141,8 +233,9 @@ if (reportForm) {
 }
 
 // Function to show pop-up confirmation when report is submitted
-function showNotification(message) {
+function showNotification(message, isError = false) {
   notification.textContent = message;
+  notification.classList.toggle("error", isError);
   notification.classList.add("show");
 
   // Hide the notification after 5 seconds
@@ -159,20 +252,30 @@ function displayReports() {
   const storedReports = JSON.parse(localStorage.getItem("reports")) || [];
   reportsList.innerHTML = ""; // Clear the list to avoid adding duplicates
 
+  // Friendly empty state when nothing has been reported yet
+  if (storedReports.length === 0) {
+    const empty = document.createElement("li");
+    empty.classList.add("empty-reports");
+    empty.textContent =
+      "No reports yet. If you spot an animal that needs pickup, submit a report and it will show up here.";
+    reportsList.appendChild(empty);
+    return;
+  }
+
   // Slice the first 5 reports for display
   storedReports.slice(0, 5).forEach((report) => {
     const li = document.createElement("li");
     li.classList.add("report-item");
 
     li.innerHTML = `
-        <strong>${report.animalType.toUpperCase()} (${
+        <strong>${escapeHTML(report.animalType).toUpperCase()} (${escapeHTML(
       report.inRoad
-    })</strong><br />
-      <div class="location">Location: ${report.address}</div>
-      <div class="timestamp">Reported At: ${report.timestamp}</div>
-      <div class="status">Status: <span class="status-text">${
+    )})</strong><br />
+      <div class="location">Location: ${escapeHTML(report.address)}</div>
+      <div class="timestamp">Reported At: ${escapeHTML(report.timestamp)}</div>
+      <div class="status">Status: <span class="status-text">${escapeHTML(
         report.status
-      }</span></div>
+      )}</span></div>
       `;
     reportsList.appendChild(li);
   });

@@ -154,7 +154,7 @@ nav a.active {
 }
 
 #map {
-  height: 225px;
+  height: 300px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -180,6 +180,13 @@ nav a.active {
   display: none;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
+  max-width: 90vw;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.notification.error {
+  background-color: #c0392b;
 }
 
 .notification.show {
@@ -202,13 +209,24 @@ fieldset {
 
 fieldset {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
   justify-content: space-evenly;
 }
 
+fieldset label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem; /* comfortable touch target */
+}
+
 input[type="radio"] {
-  width: 15px;
-  height: 15px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 input:focus,
@@ -278,6 +296,11 @@ button:hover,
 
   #report-form {
     height: auto;
+  }
+
+  fieldset {
+    flex-direction: row;
+    align-items: center;
   }
 
   #footer p {
@@ -397,6 +420,28 @@ button:hover,
   #footer p {
     font-size: 1.25rem;
   }
+}
+
+/* Inline form validation errors */
+.form-error {
+  color: #c0392b;
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0.5rem;
+  min-height: 1.2em;
+}
+
+input.invalid,
+fieldset.invalid {
+  border-color: #c0392b;
+  outline: 2px solid rgba(192, 57, 43, 0.25);
+}
+
+/* Empty state for the reports list */
+.empty-reports {
+  color: #666;
+  font-style: italic;
+  padding: 1rem 0.5rem;
+  text-align: center;
 }
 
 /* For devices smaller than 300px */

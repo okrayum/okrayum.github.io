@@ -7,13 +7,38 @@
       name="description"
       content="City Services site to report the pick-up of deceased roadside cats, dogs, and other animals."
     />
+    <meta property="og:title" content="Report a Roadside Animal | City Services" />
+    <meta
+      property="og:description"
+      content="Submit a report with the location and details — our team is notified and pickup happens the same day."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://okrayum.github.io/form.html" />
+    <meta
+      property="og:image"
+      content="https://okrayum.github.io/assets/images/skyline.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Report a Roadside Animal | City Services"
+    />
+    <meta
+      name="twitter:description"
+      content="Submit a report with the location and details — our team is notified and pickup happens the same day."
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="assets/images/favicon.svg"
+    />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <title>Animal Report App</title>
+    <title>Report a Roadside Animal | City Services</title>
   </head>
   <body>
     <!-- Navbar dynamically rendered -->
@@ -40,7 +65,7 @@
       <!-- Reporting Form -->
       <section id="form-section" aria-labelledby="form-section-heading">
         <h2 id="form-section-heading">Make a Report</h2>
-        <form id="report-form" action="">
+        <form id="report-form" action="" novalidate>
           <label for="cross-streets">Cross Streets / Address / City:</label>
           <input
             type="text"
@@ -48,10 +73,12 @@
             id="cross-streets"
             required
             aria-required="true"
+            aria-describedby="cross-streets-error"
             placeholder="Enter location details"
           />
+          <p class="form-error" id="cross-streets-error" aria-live="polite"></p>
 
-          <fieldset>
+          <fieldset id="animal-type-fieldset" aria-describedby="animal-type-error">
             <legend>Type of Animal:</legend>
             <label>
               <input
@@ -84,8 +111,9 @@
               Other
             </label>
           </fieldset>
+          <p class="form-error" id="animal-type-error" aria-live="polite"></p>
 
-          <fieldset>
+          <fieldset id="in-road-fieldset" aria-describedby="in-road-error">
             <legend>In Road?</legend>
             <label>
               <input
@@ -108,6 +136,7 @@
               No
             </label>
           </fieldset>
+          <p class="form-error" id="in-road-error" aria-live="polite"></p>
 
           <label for="description">Brief Description: (optional)</label>
           <textarea
