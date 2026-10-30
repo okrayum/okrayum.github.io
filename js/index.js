@@ -23,6 +23,11 @@ function loadHTMLcomponent(elID, component, callback) {
         const footer = document.getElementById("footer");
         footer.setAttribute("aria-label", "Footer information");
         footer.setAttribute("role", "contentinfo");
+        // Keep the copyright year current without manual edits
+        const yearEl = document.getElementById("copyright-year");
+        if (yearEl) {
+          yearEl.textContent = new Date().getFullYear();
+        }
       }
 
       if (typeof callback === "function") callback();
