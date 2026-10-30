@@ -183,6 +183,7 @@ nav a.active {
   max-width: 90vw;
   box-sizing: border-box;
   text-align: center;
+  z-index: 2000; /* sit above the Leaflet map panes */
 }
 
 .notification.error {

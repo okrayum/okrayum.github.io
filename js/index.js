@@ -55,6 +55,11 @@ document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("reports-list")) {
     displayReports();
   }
+
+  // Initialize the map only on pages that have one
+  if (document.getElementById("map") && typeof L !== "undefined") {
+    initMap();
+  }
 });
 
 // Functions to add the form submission info to the map and current reports section
@@ -198,37 +203,57 @@ if (reportForm) {
     // Confirm the save right away, then update once the map pin is placed
     showNotification("Report saved! Placing it on the map…");
 
-    // Geocode the address to get latitude and longitude
-    const geocoder = new google.maps.Geocoder();
+    // Geocode the address with the free OpenStreetMap Nominatim service
+    // (no API key needed)
+    fetch(
+      `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(
+        address
+      )}`,
+      { headers: { Accept: "application/json" } }
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Geocoder error: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((results) => {
+        if (!results.length) {
+          showNotification(
+            "Report saved, but we couldn't find that address on the map. Please double-check the location details.",
+            true
+          );
+          return;
+        }
 
-    geocoder.geocode({ address: address }, (results, status) => {
-      if (status === "OK") {
-        const location = results[0].geometry.location;
+        const lat = parseFloat(results[0].lat);
+        const lon = parseFloat(results[0].lon);
 
-        // Add a new marker to the map
-        const newMarker = new google.maps.marker.AdvancedMarkerElement({
-          position: location,
-          map: map,
-          title: `Report: ${address}`,
-        });
+        // Drop a pin on the map
+        if (typeof L !== "undefined" && map) {
+          const newMarker = L.marker([lat, lon]).addTo(map);
+          newMarker.bindPopup(
+            `<strong>Report</strong><br>${escapeHTML(address)}`
+          );
 
-        // Store the new markers position in localStorage
-        markers.push({ lat: location.lat(), lng: location.lng() });
+          // Re-center map on the new marker
+          map.setView([lat, lon], 14);
+        }
+
+        // Store the new marker's position in localStorage
+        markers.push({ lat, lng: lon });
         localStorage.setItem("markers", JSON.stringify(markers));
 
-        // Re-center map to the new marker location
-        map.setCenter(location);
-
         showNotification(
-          `Report submitted! Marker added at: ${results[0].formatted_address}`
+          `Report submitted! Marker added at: ${results[0].display_name}`
         );
-      } else {
+      })
+      .catch(() => {
         showNotification(
-          "Report saved, but we couldn't find that address on the map. Please double-check the location details.",
+          "Report saved, but the map lookup failed. Please check your connection and try again.",
           true
         );
-      }
-    });
+      });
   });
 }
 
@@ -286,27 +311,24 @@ function displayReports() {
   }
 }
 
-// Initialize the Google Map
+// Initialize the Leaflet map (free OpenStreetMap tiles, no API key)
 let map;
 
 function initMap() {
-  // Phoenix, Arizona as default loaction only because that's where I live.
-  const defaultLocation = { lat: 33.4484, lng: -112.074 };
+  // Phoenix, Arizona as default location only because that's where I live.
+  const defaultLocation = [33.4484, -112.074];
 
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: defaultLocation,
-    zoom: 10,
-    // Unique identifier specifically to this Google map
-    mapId: "47c471a16ed7969e",
-  });
+  map = L.map("map").setView(defaultLocation, 10);
+
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
 
   // Retrieve markers from localStorage and add them to the map
   const storedMarkers = JSON.parse(localStorage.getItem("markers")) || [];
   storedMarkers.forEach((markerData) => {
-    new google.maps.marker.AdvancedMarkerElement({
-      position: { lat: markerData.lat, lng: markerData.lng },
-      map: map,
-      title: "Stored Marker",
-    });
+    L.marker([markerData.lat, markerData.lng]).addTo(map);
   });
 }
